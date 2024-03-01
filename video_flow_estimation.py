@@ -7,19 +7,14 @@ from raft import Raft
 FLOW_FRAME_OFFSET = 10 # Number of frame difference to estimate the optical flow
 
 # Initialize model
-model_path='models/raft_things_iter20_480x640.onnx'
+model_path='models/raft_things_iter20_240x320.onnx'
 flow_estimator = Raft(model_path)
 
 # Initialize video
-# cap = cv2.VideoCapture("input.mp4")
-
-videoUrl = 'https://youtu.be/3wdsE1UgP6k'
-videoPafy = pafy.new(videoUrl)
-print(videoPafy.streams)
-cap = cv2.VideoCapture(videoPafy.streams[-1].url)
+cap = cv2.VideoCapture("doc/eagle3.mp4")
 
 # Skip first {start_time} seconds
-start_time = 5
+start_time = 1
 cap.set(cv2.CAP_PROP_POS_FRAMES, start_time*30)
 
 cv2.namedWindow("Estimated flow", cv2.WINDOW_NORMAL)
@@ -48,6 +43,7 @@ while cap.isOpened():
 	combined_img = cv2.addWeighted(frame_list[0], alpha, flow_img, (1-alpha),0)
 	# combined_img = np.hstack((frame_list[-1], flow_img))
 
+	cv2.imshow("raw", flow_img)
 	cv2.imshow("Estimated flow", combined_img)
 
 	# Remove the oldest frame

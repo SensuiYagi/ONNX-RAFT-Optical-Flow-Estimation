@@ -19,7 +19,7 @@ class Raft():
 
 	def initialize_model(self, model_path):
 
-		self.session = onnxruntime.InferenceSession(model_path, providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
+		self.session = onnxruntime.InferenceSession(model_path, providers=['CPUExecutionProvider'])
 
 		# Get model info
 		self.get_input_details()
@@ -94,24 +94,24 @@ class Raft():
 		self.output_height = self.output_shape[2]
 		self.output_width = self.output_shape[3]
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 	
-	from imread_from_url import imread_from_url
+# 	from imread_from_url import imread_from_url
 
-	# Initialize model
-	model_path='../models/raft_things_iter20_480x640.onnx'
-	flow_estimator = Raft(model_path)
+# 	# Initialize model
+# 	model_path='../models/raft_things_iter20_480x640.onnx'
+# 	flow_estimator = Raft(model_path)
 
-	# Read inference image
-	img1 = imread_from_url("https://github.com/princeton-vl/RAFT/blob/master/demo-frames/frame_0016.png?raw=true")
-	img2 = imread_from_url("https://github.com/princeton-vl/RAFT/blob/master/demo-frames/frame_0025.png?raw=true")
+# 	# Read inference image
+# 	img1 = imread_from_url("https://github.com/princeton-vl/RAFT/blob/master/demo-frames/frame_0016.png?raw=true")
+# 	img2 = imread_from_url("https://github.com/princeton-vl/RAFT/blob/master/demo-frames/frame_0025.png?raw=true")
 
-	# Estimate flow and colorize it
-	flow_map = flow_estimator(img1, img2)
-	flow_img = flow_estimator.draw_flow()
+# 	# Estimate flow and colorize it
+# 	flow_map = flow_estimator(img1, img2)
+# 	flow_img = flow_estimator.draw_flow()
 
-	combined_img = np.hstack((img1, img2, flow_img))
+# 	combined_img = np.hstack((img1, img2, flow_img))
 
-	cv2.namedWindow("Estimated flow", cv2.WINDOW_NORMAL)
-	cv2.imshow("Estimated flow", combined_img)
-	cv2.waitKey(0)
+# 	cv2.namedWindow("Estimated flow", cv2.WINDOW_NORMAL)
+# 	cv2.imshow("Estimated flow", combined_img)
+# 	cv2.waitKey(0)
