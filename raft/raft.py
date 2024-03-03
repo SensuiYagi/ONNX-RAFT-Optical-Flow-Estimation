@@ -1,7 +1,5 @@
 import cv2
-import time
 import numpy as np
-import onnx
 import onnxruntime
 
 from .utils import flow_to_image
@@ -18,9 +16,9 @@ class Raft():
 		return self.estimate_flow(img1, img2)
 
 	def initialize_model(self, model_path):
-
-		self.session = onnxruntime.InferenceSession(model_path, providers=['CPUExecutionProvider'])
-
+		
+		self.session = onnxruntime.InferenceSession(model_path, providers = ['CUDAExecutionProvider'])
+		print(f"Using {onnxruntime.get_available_providers()} for inference")
 		# Get model info
 		self.get_input_details()
 		self.get_output_details()

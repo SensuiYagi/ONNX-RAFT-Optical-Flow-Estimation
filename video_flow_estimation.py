@@ -1,5 +1,4 @@
 import cv2
-import pafy
 import numpy as np
 
 from raft import Raft
@@ -35,13 +34,15 @@ while cap.isOpened():
 	frame_num += 1
 	if frame_num <= FLOW_FRAME_OFFSET:
 		continue
-
+		
 	flow_map = flow_estimator(frame_list[0], frame_list[-1])
 	flow_img = flow_estimator.draw_flow()
 
 	alpha = 0.5
 	combined_img = cv2.addWeighted(frame_list[0], alpha, flow_img, (1-alpha),0)
 	# combined_img = np.hstack((frame_list[-1], flow_img))
+
+	print(frame_num)
 
 	cv2.imshow("raw", flow_img)
 	cv2.imshow("Estimated flow", combined_img)
