@@ -5,6 +5,7 @@ from raft import Raft
 
 # Initialize model
 model_path='models/raft_things_iter10_240x320.onnx'
+# model_path='models/output.onnx'
 flow_estimator = Raft(model_path)
 
 FLOW_FRAME_OFFSET = 1 # Number of frame difference to estimate the optical flow

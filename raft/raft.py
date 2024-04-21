@@ -60,6 +60,7 @@ class Raft():
 	def process_output(self, output): 
 
 		flow_map = output[1][0].transpose(1, 2, 0)
+		# flow_map = output[11][0].transpose(1, 2, 0)
 
 		return flow_map
 

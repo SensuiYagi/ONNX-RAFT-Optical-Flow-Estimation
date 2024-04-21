@@ -17,7 +17,7 @@ def print_model_io_info(onnx_file_path):
         print(f"Name: {output.name}, Type: {output.type}")
 
 # ここにONNXファイルのパスを指定します。
-onnx_file_path = 'models/raft_things_iter10_240x320.onnx'
+onnx_file_path = 'models/output.onnx'
 
 # モデルの入出力情報を表示
 print_model_io_info(onnx_file_path)
